@@ -1,0 +1,8 @@
+
+Export_Textiles
+	Run Time : 3.5074474811553955
+	Log Likelihood : -1.0887349150102565
+	MEU : 1722313.8158882717
+	Nodes : 38
+	Parameters : 12
+	Layers : 7

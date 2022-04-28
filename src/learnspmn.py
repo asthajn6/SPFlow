@@ -35,9 +35,9 @@ from collections import Counter
 import time
 import pickle
 
-datasets = ['Export_Textiles','HIV_Screening', 'Powerplant_Airpollution', 'Computer_Diagnostician',  'Test_Strep', 'LungCancer_Staging']
+#datasets = ['Export_Textiles','HIV_Screening', 'Powerplant_Airpollution', 'Computer_Diagnostician',  'Test_Strep', 'LungCancer_Staging']
 #datasets = []
-datasets = ['Export_Textiles']
+datasets = ['HIV_Screening']
 path = "sample"
 
 def get_loglikelihood(instance):
@@ -130,11 +130,11 @@ for dataset in datasets:
 	m = meu(spmn, test_data)
 	meus = (m[0])
 	
-	'''
+	
 	env = get_env(dataset)
 	total_reward = 0
-	batch_count = 25
-	batch_size = 20000 
+	batch_count = 10
+	batch_size = 1000 
 	batch = list()
 
 	pool = multiprocessing.Pool()
@@ -157,7 +157,7 @@ for dataset in datasets:
 	
 	avg_rewards = np.mean(batch)
 	reward_dev = np.std(batch)
-	'''
+	
 
 	print(f"\n\tRun Time: {runtime}")
 	print(f"\n\tLog Likelihood : {ll}")
@@ -165,8 +165,8 @@ for dataset in datasets:
 	print(f"\n\tNodes : {nodes}")
 	print(f"\n\tParameters : {parameters}")
 	print(f"\n\tLayers : {layers}")
-	#print(f"\n\tAverage rewards : {avg_rewards}")
-	#print(f"\n\tDeviation : {reward_dev}")
+	print(f"\n\tAverage rewards : {avg_rewards}")
+	print(f"\n\tDeviation : {reward_dev}")
 	
 	
 	f = open(f"{path}/{dataset}/stats.txt", "w")
@@ -177,8 +177,8 @@ for dataset in datasets:
 	f.write(f"\n\tNodes : {nodes}")
 	f.write(f"\n\tParameters : {parameters}")
 	f.write(f"\n\tLayers : {layers}")
-	#f.write(f"\n\tAverage rewards : {avg_rewards}")
-	#f.write(f"\n\tDeviation : {reward_dev}")
+	f.write(f"\n\tAverage rewards : {avg_rewards}")
+	f.write(f"\n\tDeviation : {reward_dev}")
 	f.close()
 	
 	

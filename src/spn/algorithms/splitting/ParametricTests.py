@@ -42,145 +42,11 @@ def g_test1(feature_id_1, feature_id_2, local_data, feature_vals, scope, g_facto
     
     col1 = []
     col2 = []
-    col3 = []
-    col4 = []
-    col5 = []
-    col6 = []
-    col7 = []
 
-    #Export_Textiles
-    # print(local_data.size)
-    # print(scope)
-    # for i in range((int)(local_data.size/2)):
-    #     col1.append(local_data[i][0])
-    #     col2.append(local_data[i][1])
-   
-    # col1 = np.array(col1)
-    # col2 = np.array(col2)
-
-    # print(local_data)
-    # print(col1)
-    # print(col2)
-
-    # data_crosstab = pd.crosstab(col1, col2)
-
-    #PowerPlant_AirPollution
-    # print(local_data.size)
-    # for i in range((int)(local_data.size/4)):
-    #     col1.append(local_data[i][0])
-    #     col2.append(local_data[i][1])
-    #     col3.append(local_data[i][2])
-    #     col4.append(local_data[i][3])
-
-    
-   
-    # col1 = np.array(col1)
-    # col2 = np.array(col2)
-    # col3 = np.array(col3)
-    # col4 = np.array(col4)
-
-    # print(col1)
-    # print(col2) 
-    # print(col3)
-    # print(col4) 
-
+    #creating a contingency matrix over two feature IDs 1 and 2
     col1 = np.array(local_data[:,feature_id_1])
     col2 = np.array(local_data[:,feature_id_2])
     data_crosstab = pd.crosstab(col1,col2)
-
-    #HIV_Screening
-    # print(local_data.size)
-    # for i in range((int)(local_data.size/8)):
-    #     col1.append(local_data[i][0])
-    #     col2.append(local_data[i][1])
-    #     col3.append(local_data[i][2])
-    #     col4.append(local_data[i][3])
-   
-    # col1 = np.array(col1)
-    # col2 = np.array(col2)
-    # col3 = np.array(col3)
-    # col4 = np.array(col4)
-
-    # print(local_data)
-    # print(col1)
-    # print(col2) 
-    # print(col3)
-    # print(col4) 
-
-    # data_crosstab = pd.crosstab([col1, col2], [col3, col4])
-
-    #Computer_Diagnostician
-    # print(local_data.size)
-    # for i in range((int)(local_data.size/6)):
-    #     col1.append(local_data[i][0])
-    #     col2.append(local_data[i][1])
-    #     col3.append(local_data[i][2])
-    #     col4.append(local_data[i][3])
-   
-    # col1 = np.array(col1)
-    # col2 = np.array(col2)
-    # col3 = np.array(col3)
-    # col4 = np.array(col4)
-
-    # print(local_data)
-    # print(col1)
-    # print(col2) 
-    # print(col3)
-    # print(col4) 
-
-    # data_crosstab = pd.crosstab([col1, col2], [col3, col4])
-
-    #Test_Strep
-    # print(local_data.size)
-    # for i in range((int)(local_data.size/7)):
-    #     col1.append(local_data[i][0])
-    #     col2.append(local_data[i][1])
-    #     col3.append(local_data[i][2])
-    #     col4.append(local_data[i][3])
-    #     col5.append(local_data[i][4])
-    #     # col6.append(local_data[i][5])
-    #     # col7.append(local_data[i][6])
-   
-    # col1 = np.array(col1)
-    # col2 = np.array(col2)
-    # col3 = np.array(col3)
-    # col4 = np.array(col4)
-    # col5 = np.array(col5)
-    # # col6 = np.array(col6)
-    # # col7 = np.array(col7)
-
-    # print(local_data)
-    # print(col1)
-    # print(col2) 
-    # print(col3)
-    # print(col4) 
-    # print(col5) 
-    # # print(col6) 
-    # # print(col7) 
-
-    # data_crosstab = pd.crosstab(col1, [col2, col3, col4, col5])
-
-    # total_features = local_data.shape[1]
-    # decision_features = scope
-    
-    # #if first partial order is decision, then remove from total
-    # remaining_features = total_features - decision_features
-
-    # individual_feature_columns = []
-    # for i in range((int)(local_data.size/len(scope))):
-    #     for j in range(len(scope)):
-    #         individual_feature_columns.append(np.array(local_data[i][j]))
-
-    # col1 = []
-    # col2 = []
-    
-    # col1.append(individual_feature_columns[0])
-    # col1.append(individual_feature_columns[1])
-    # for i in range(len(individual_feature_columns)-2):
-    #     col2.append(individual_feature_columns[i+2])
-
-    
-    # data_crosstab = pd.crosstab(np.array(col1), np.array(col2))
 
     print(data_crosstab)
 
@@ -189,12 +55,14 @@ def g_test1(feature_id_1, feature_id_2, local_data, feature_vals, scope, g_facto
     #lambda = log-likelihood allows to calculate G value
     #we cannot use P value and dof further from here because it calculates on frequencies of data and not on actual values
     g_val, p_val, dof, expctd = scipy.stats.chi2_contingency(data_crosstab, lambda_="log-likelihood")
-    
+    print(g_val)
+
     #calculating Degrees of Freedom for the data
     dof1 = local_data.size - sum(local_data.shape) + local_data.ndim - 1
     
     #calculating P value using G value and Degree of Freedom
     p_value = chi2.sf(g_val, dof1)
+    print(p_value)
 
     #comparing the P value to the threshold
     return p_value > g_factor
@@ -280,53 +148,60 @@ def gtest_greedy_feature_split(local_data, feature_vals, scope, g_factor, rand_g
     n_features = local_data.shape[1]
     print(n_features)
 
-    feature_ids_mask = np.ones(n_features, dtype=bool)
-
     #
-    # extracting one feature at random
-    rand_feature_id = random.randint(0, n_features-1)
-    feature_ids_mask[rand_feature_id] = False
+    # extracting all features one by one
+    for rand_feature_id in range(n_features):
 
-    dependent_features = np.zeros(n_features, dtype=bool)
-    dependent_features[rand_feature_id] = True
+        feature_ids_mask = np.ones(n_features, dtype=bool)
+        feature_ids_mask[rand_feature_id] = False
 
-    # greedy bfs searching
-    features_to_process = deque()
-    features_to_process.append(rand_feature_id)
+        dependent_features = np.zeros(n_features, dtype=bool)
+        dependent_features[rand_feature_id] = True
 
-    while features_to_process:
-        # get one
-        current_feature_id = features_to_process.popleft()
-        print(current_feature_id)
-        # feature_id_1 = data_slice.feature_ids[current_feature_id]
+        # greedy bfs searching
+        features_to_process = deque()
+        features_to_process.append(rand_feature_id)
 
-        # features to remove later
-        features_to_remove = np.zeros(n_features, dtype=bool)
+        while features_to_process:
+            # get one
+            current_feature_id = features_to_process.popleft()
+            print(current_feature_id)
+            # feature_id_1 = data_slice.feature_ids[current_feature_id]
 
-        for other_feature_id in feature_ids_mask.nonzero()[0]:
-            print(other_feature_id)
-            #
-            # logger.info('considering other features', other_feature_id)
-            # feature_id_2 = data_slice.feature_ids[other_feature_id]
-            #
-            # apply a G-test
-            if not g_test1(
-                current_feature_id,  # feature_id_1,
-                other_feature_id,  # feature_id_2,
-                local_data,
-                feature_vals,
-                scope,
-                g_factor
-            ):
+            # features to remove later
+            features_to_remove = np.zeros(n_features, dtype=bool)
 
+            for other_feature_id in feature_ids_mask.nonzero()[0]:
+                print(other_feature_id)
                 #
-                # updating 'sets'
-                features_to_remove[current_feature_id] = True
-                dependent_features[other_feature_id] = True
-                features_to_process.append(other_feature_id)
+                # logger.info('considering other features', other_feature_id)
+                # feature_id_2 = data_slice.feature_ids[other_feature_id]
+                #
+                # apply a G-test
+                if not g_test1(
+                    current_feature_id,  # feature_id_1,
+                    other_feature_id,  # feature_id_2,
+                    local_data,
+                    feature_vals,
+                    scope,
+                    g_factor
+                ):
 
-        # now removing from future considerations
-        feature_ids_mask[features_to_remove] = False
+                    #
+                    # updating 'sets'
+                    features_to_remove[current_feature_id] = True
+                    dependent_features[other_feature_id] = True
+                    features_to_process.append(other_feature_id)
+
+            # now removing from future considerations
+            feature_ids_mask[features_to_remove] = False
+
+        #finding the number of distinct features after splitting
+        values, count = np.unique(dependent_features, return_counts=True)
+        
+        #once correlation is observed, move on to the next feature
+        if(values.size>1):
+            break
 
     return dependent_features.astype(np.int)
 
