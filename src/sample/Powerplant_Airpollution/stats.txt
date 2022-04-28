@@ -1,8 +1,10 @@
 
 Powerplant_Airpollution
-	Run Time : 5.345171928405762
-	Log Likelihood : -1.4282710303259452
+	Run Time : 3.419752597808838
+	Log Likelihood : -1.4410394638667416
 	MEU : -2751949.6100779846
 	Nodes : 33
 	Parameters : 6
 	Layers : 6
+	Average rewards : -2758617.0
+	Deviation : 8004.2448738153935

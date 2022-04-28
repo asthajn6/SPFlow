@@ -1,10 +1,10 @@
 
 Computer_Diagnostician
-	Run Time : 6.043301105499268
-	Log Likelihood : -1.336503150475206
+	Run Time : 5.722468614578247
+	Log Likelihood : -1.3194629379855007
 	MEU : -208.46145569078635
 	Nodes : 44
 	Parameters : 9
 	Layers : 9
-	Average rewards : -210.26
-	Deviation : 2.4323394088819095
+	Average rewards : -210.0541
+	Deviation : 0.3748615611128974

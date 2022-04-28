@@ -1,8 +1,10 @@
 
 Export_Textiles
-	Run Time : 3.5074474811553955
-	Log Likelihood : -1.0887349150102565
+	Run Time : 3.7676331996917725
+	Log Likelihood : -1.0904714827845314
 	MEU : 1722313.8158882717
 	Nodes : 38
 	Parameters : 12
 	Layers : 7
+	Average rewards : 1722218.044
+	Deviation : 4199.899541794298

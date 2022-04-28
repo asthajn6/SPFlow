@@ -37,7 +37,7 @@ import pickle
 
 #datasets = ['Export_Textiles','HIV_Screening', 'Powerplant_Airpollution', 'Computer_Diagnostician',  'Test_Strep', 'LungCancer_Staging']
 #datasets = []
-datasets = ['HIV_Screening']
+datasets = ['Computer_Diagnostician',  'Test_Strep']
 path = "sample"
 
 def get_loglikelihood(instance):
@@ -133,8 +133,8 @@ for dataset in datasets:
 	
 	env = get_env(dataset)
 	total_reward = 0
-	batch_count = 10
-	batch_size = 1000 
+	batch_count = 25
+	batch_size = 20000 
 	batch = list()
 
 	pool = multiprocessing.Pool()
