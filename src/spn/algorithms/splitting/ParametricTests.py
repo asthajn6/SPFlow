@@ -9,15 +9,11 @@ import numpy as np
 import pandas as pd
 import numba
 import scipy
-import math
-import mpmath
-#from scipy import stats
 
 
 from collections import deque
 
 from spn.algorithms.splitting.Base import split_data_by_clusters
-#from scipy.stats import chi2_contingency
 from scipy.stats import chi2
 import logging
 import random
@@ -43,29 +39,18 @@ def g_test1(feature_id_1, feature_id_2, local_data, feature_vals, scope, g_facto
     col1 = []
     col2 = []
 
-    #creating a contingency matrix over two feature IDs 1 and 2
+    # creating a contingency matrix over two feature IDs 1 and 2
     col1 = np.array(local_data[:,feature_id_1])
     col2 = np.array(local_data[:,feature_id_2])
     data_crosstab = pd.crosstab(col1,col2)
 
-    print(data_crosstab)
-
-    #calculating G value from chi2 contingency function in scipy package
-    #feeding the contingency matrix created above as a parameter to chi2_contingency function
-    #lambda = log-likelihood allows to calculate G value
-    #we cannot use P value and dof further from here because it calculates on frequencies of data and not on actual values
+    # calculating G and P value from chi2 contingency function in scipy package
+    # feeding the contingency matrix created above as a parameter to chi2_contingency function
+    # lambda = log-likelihood allows to calculate G value
     g_val, p_val, dof, expctd = scipy.stats.chi2_contingency(data_crosstab, lambda_="log-likelihood")
-    print(g_val)
 
-    #calculating Degrees of Freedom for the data
-    dof1 = local_data.size - sum(local_data.shape) + local_data.ndim - 1
-    
-    #calculating P value using G value and Degree of Freedom
-    p_value = chi2.sf(g_val, dof1)
-    print(p_value)
-
-    #comparing the P value to the threshold
-    return p_value > g_factor
+    # comparing the P value to the threshold
+    return p_val > g_factor
 
 @numba.jit
 def g_test(feature_id_1, feature_id_2, local_data, feature_vals, g_factor):
@@ -96,13 +81,10 @@ def g_test(feature_id_1, feature_id_2, local_data, feature_vals, g_factor):
     feature_tot_1 = np.zeros(feature_size_1, dtype=np.uint32)
     feature_tot_2 = np.zeros(feature_size_2, dtype=np.uint32)
     
-    print(feature_tot_1, feature_tot_2)
-    print(feature_size_1[-1]+1, feature_size_2[-1]+1)
     co_occ_matrix = np.zeros((feature_size_1[-1]+1, feature_size_2[-1]+1), dtype=np.uint32)
     
     #
     # counting for the current instances
-    print(n_instances)
     for i in range(n_instances):
         co_occ_matrix[(int)(local_data[i, feature_id_1]), (int)(local_data[i, feature_id_2])] += 1
     
@@ -146,7 +128,6 @@ def gtest_greedy_feature_split(local_data, feature_vals, scope, g_factor, rand_g
     """
     # n_features = data_slice.n_features()
     n_features = local_data.shape[1]
-    print(n_features)
 
     #
     # extracting all features one by one
@@ -165,14 +146,12 @@ def gtest_greedy_feature_split(local_data, feature_vals, scope, g_factor, rand_g
         while features_to_process:
             # get one
             current_feature_id = features_to_process.popleft()
-            print(current_feature_id)
             # feature_id_1 = data_slice.feature_ids[current_feature_id]
 
             # features to remove later
             features_to_remove = np.zeros(n_features, dtype=bool)
 
             for other_feature_id in feature_ids_mask.nonzero()[0]:
-                print(other_feature_id)
                 #
                 # logger.info('considering other features', other_feature_id)
                 # feature_id_2 = data_slice.feature_ids[other_feature_id]
@@ -196,10 +175,10 @@ def gtest_greedy_feature_split(local_data, feature_vals, scope, g_factor, rand_g
             # now removing from future considerations
             feature_ids_mask[features_to_remove] = False
 
-        #finding the number of distinct features after splitting
-        values, count = np.unique(dependent_features, return_counts=True)
+        # finding the number of distinct features to cluster together and split the remaining
+        values = np.unique(dependent_features)
         
-        #once correlation is observed, move on to the next feature
+        # proceed to splitting once independence is observed
         if(values.size>1):
             break
 

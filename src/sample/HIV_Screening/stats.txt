@@ -1,10 +1,8 @@
 
 HIV_Screening
-	Run Time : 7.181905746459961
-	Log Likelihood : -17.360905995034138
-	MEU : 42.657369610915005
-	Nodes : 89
-	Parameters : 22
-	Layers : 10
-	Average rewards : 42.566817859992646
-	Deviation : 0.04719999232232441
+	Run Time : 29.647652626037598
+	Log Likelihood : -0.6119471635087381
+	MEU : 42.582734183407034
+	Nodes : 127
+	Parameters : 31
+	Layers : 12

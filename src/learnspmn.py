@@ -35,9 +35,9 @@ from collections import Counter
 import time
 import pickle
 
-#datasets = ['Export_Textiles','HIV_Screening', 'Powerplant_Airpollution', 'Computer_Diagnostician',  'Test_Strep', 'LungCancer_Staging']
+datasets = ['Export_Textiles', 'Powerplant_Airpollution', 'Computer_Diagnostician', 'HIV_Screening', 'Test_Strep', 'LungCancer_Staging']
 #datasets = []
-datasets = ['Computer_Diagnostician',  'Test_Strep']
+#datasets = ['Powerplant_Airpollution']
 path = "sample"
 
 def get_loglikelihood(instance):

@@ -1,10 +1,10 @@
 
 Test_Strep
-	Run Time : 14.417632579803467
-	Log Likelihood : -1.3039418855100149
-	MEU : 54.92567794062666
-	Nodes : 109
-	Parameters : 24
-	Layers : 10
-	Average rewards : 54.91538468400898
-	Deviation : 0.01276845033449606
+	Run Time : 29.344221353530884
+	Log Likelihood : -0.9151014358448434
+	MEU : 54.9416526618876
+	Nodes : 150
+	Parameters : 29
+	Layers : 11
+	Average rewards : 54.91272498000897
+	Deviation : 0.012294228154271801
