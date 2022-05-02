@@ -133,21 +133,15 @@ class SPMN:
             if curr_op != 'Sum':    # fails if correlated variable set found in previous recursive call.
                                     # Without this condition code keeps looping at this stage
                 print (remaining_vars_data.shape)
+
                 ds_context = get_ds_context(remaining_vars_data, remaining_vars_scope, self.params)
-                # print(len(remaining_vars_scope))
-                #So it causes this issue when the "n" limiting value is based on the size of the reminaing vars scope which
-                #doesn't particularly make sense because it should be reducing it yes?
-                #So now we shall read up on "n" and check that this isn't a fluke of the dataset.
-                # split_cols = get_split_cols_distributed_RDC_Py1(rand_gen=None, ohe=False, n_jobs=-1, n=round(200))
+                print(remaining_vars_scope)
+
+                # independence testing using G-test
                 gtest_split = get_split_cols_GTest()
-                # if(self.ver "RDC"):
-                # data_slices_prod = split_cols(remaining_vars_data, ds_context, remaining_vars_scope,rest_set_scope)
-                # Modified - DR
-                # elif(self.ver == "gtest"):
                 data_slices_prod = gtest_split(remaining_vars_data, ds_context, remaining_vars_scope)
 
-                # ds_context = get_ds_context(remaining_vars_data, remaining_vars_scope, self.params)
-                # print(remaining_vars_scope)
+                # independence testing using RDC
                 # split_cols = get_split_cols_RDC_py()
                 # data_slices_prod = split_cols(remaining_vars_data, ds_context, remaining_vars_scope)
 

@@ -1,0 +1,10 @@
+
+LungCancer_Staging
+	Run Time : 51.60323238372803
+	Log Likelihood : -1.1508657772653583
+	MEU : 3.138664586296027
+	Nodes : 324
+	Parameters : 74
+	Layers : 14
+	Average rewards : 3.1102117999999166
+	Deviation : 0.010726408241335805

@@ -46,10 +46,11 @@ def g_test1(feature_id_1, feature_id_2, local_data, feature_vals, scope, g_facto
 
     # calculating G and P value from chi2 contingency function in scipy package
     # feeding the contingency matrix created above as a parameter to chi2_contingency function
-    # lambda = log-likelihood allows to calculate G value
+    # lambda = log-likelihood allows for G-test
     g_val, p_val, dof, expctd = scipy.stats.chi2_contingency(data_crosstab, lambda_="log-likelihood")
 
     # comparing the P value to the threshold
+    # returns true if independence is observed
     return p_val > g_factor
 
 @numba.jit
